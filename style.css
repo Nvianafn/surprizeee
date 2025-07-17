@@ -1,0 +1,668 @@
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500&display=swap');
+
+:root {
+    --font-utama: 'Crimson Text', serif;
+    --font-pendukung: 'Inter', sans-serif;
+    --warna-background: #0a0a0f;
+    --warna-teks: #d4d4d8;
+    --warna-aksen: #a78bfa;
+    --warna-secondary: #64748b;
+    --warna-subtle: #1e293b;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+body {
+    background: var(--warna-background);
+    color: var(--warna-teks);
+    font-family: var(--font-pendukung);
+    line-height: 1.7;
+    overflow-x: hidden;
+}
+
+#splash-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        radial-gradient(ellipse at 30% 20%, rgba(167, 139, 250, 0.1) 0%, transparent 50%),
+        radial-gradient(ellipse at 70% 80%, rgba(118, 75, 162, 0.08) 0%, transparent 50%),
+        radial-gradient(ellipse at bottom, #1b2735 0%, #0a0a0f 100%);
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 1.5s cubic-bezier(0.4, 0, 0.2, 1), visibility 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
+}
+
+/* Judul website yang muncul di atas tombol */
+.splash-title {
+    font-family: var(--font-utama);
+    font-size: 2.5rem;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 1rem;
+    text-shadow: 0 0 30px rgba(167, 139, 250, 0.3);
+    letter-spacing: -0.5px;
+    opacity: 0;
+    animation: fadeInUp 2s ease-out 0.5s forwards;
+}
+
+.splash-subtitle {
+    font-family: var(--font-pendukung);
+    font-size: 1.1rem;
+    color: rgba(212, 212, 216, 0.7);
+    margin-bottom: 3rem;
+    font-style: italic;
+    font-weight: 300;
+    opacity: 0;
+    animation: fadeInUp 2s ease-out 1s forwards;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Tombol Mulai yang Lebih Elegan */
+.tombol-mulai-interaktif {
+    position: relative;
+    width: 260px;
+    height: 90px;
+    cursor: pointer;
+    z-index: 2;
+    opacity: 0;
+    animation: fadeInUp 2s ease-out 1.5s forwards;
+}
+
+.tombol-mulai-interaktif .track {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        linear-gradient(145deg, rgba(30, 41, 59, 0.4), rgba(15, 23, 42, 0.6)),
+        rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(167, 139, 250, 0.2);
+    border-radius: 45px;
+    box-shadow: 
+        inset 0 1px 0 rgba(255, 255, 255, 0.1),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.2),
+        0 10px 30px rgba(0, 0, 0, 0.3),
+        0 0 0 1px rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+}
+
+.tombol-mulai-interaktif:hover .track {
+    border-color: rgba(167, 139, 250, 0.4);
+    box-shadow: 
+        inset 0 1px 0 rgba(255, 255, 255, 0.1),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.2),
+        0 15px 40px rgba(0, 0, 0, 0.4),
+        0 0 20px rgba(167, 139, 250, 0.2);
+}
+
+.tombol-mulai-interaktif .kontrol {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    width: 60px;
+    height: 60px;
+    background: 
+        radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.9), rgba(240, 240, 240, 0.8)),
+        linear-gradient(145deg, #f8f9fa, #e9ecef);
+    border-radius: 50%;
+    box-shadow: 
+        0 8px 25px rgba(0, 0, 0, 0.3),
+        0 2px 8px rgba(0, 0, 0, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.8),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+}
+
+.tombol-mulai-interaktif .kontrol .teks {
+    color: #2d3748;
+    font-weight: 600;
+    font-family: var(--font-utama);
+    font-size: 1.2rem;
+    transition: all 0.4s ease;
+    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+}
+
+/* State saat tombol diklik */
+.tombol-mulai-interaktif.on .kontrol {
+    transform: translateX(170px);
+    background: 
+        radial-gradient(circle at 30% 30%, rgba(167, 139, 250, 1), rgba(138, 99, 210, 0.9)),
+        linear-gradient(145deg, var(--warna-aksen), #8a63d2);
+    box-shadow: 
+        0 0 30px rgba(167, 139, 250, 0.6),
+        0 0 60px rgba(167, 139, 250, 0.4),
+        0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+.tombol-mulai-interaktif.on .kontrol .teks {
+    color: #ffffff;
+    transform: scale(0);
+    opacity: 0;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+/* Efek ripple saat tombol diklik */
+.tombol-mulai-interaktif.on .track::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: radial-gradient(circle, rgba(167, 139, 250, 0.2), transparent);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    animation: ripple 0.6s ease-out;
+}
+
+@keyframes ripple {
+    to {
+        width: 300px;
+        height: 300px;
+        opacity: 0;
+    }
+}
+
+.loading-text {
+    position: absolute;
+    bottom: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: var(--font-pendukung);
+    font-size: 0.9rem;
+    color: var(--warna-secondary);
+    opacity: 0;
+    transition: opacity 0.5s ease 0.2s;
+}
+
+.tombol-mulai-interaktif.on ~ .loading-text {
+    opacity: 1;
+}
+
+/* ======================================================= */
+/* LATAR BELAKANG BINTANG BERGERAK                         */
+/* ======================================================= */
+
+.latar-angkasa {
+    background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    overflow: hidden;
+}
+
+/* Floating Particles */
+.particles {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
+.particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: radial-gradient(circle, rgba(167, 139, 250, 0.8), rgba(167, 139, 250, 0.2));
+    border-radius: 50%;
+    animation: float 6s ease-in-out infinite;
+    opacity: 0.6;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-20px) rotate(180deg); }
+}
+
+/* Animated Clouds (Nebula Effect) */
+.clouds {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
+.cloud {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 50px;
+    animation: drift 40s linear infinite;
+    filter: blur(10px);
+}
+
+.cloud:nth-child(1) {
+    width: 100px; height: 40px; top: 20%; left: -100px;
+    animation-duration: 50s;
+}
+.cloud:nth-child(2) {
+    width: 80px; height: 30px; top: 40%; left: -80px;
+    animation-duration: 60s; animation-delay: -20s;
+}
+.cloud:nth-child(3) {
+    width: 120px; height: 50px; top: 60%; left: -120px;
+    animation-duration: 45s; animation-delay: -10s;
+}
+
+@keyframes drift {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(calc(100vw + 200px)); }
+}
+
+/* Constellation Lines */
+.constellation {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
+.constellation-line {
+    position: absolute;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(167, 139, 250, 0.3), transparent);
+    transform-origin: left center;
+    animation: twinkle-line 4s ease-in-out infinite;
+}
+
+@keyframes twinkle-line {
+    0%, 100% { opacity: 0.1; }
+    50% { opacity: 0.4; }
+}
+
+/* Shooting Stars */
+.shooting-star {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 50%;
+    animation: shoot 3s linear infinite;
+}
+
+.shooting-star::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 50px; height: 1px;
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.9), transparent);
+    transform: translateX(-50px);
+}
+
+@keyframes shoot {
+    0% { transform: translateX(-100px) translateY(0); opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { transform: translateX(100vw) translateY(100px); opacity: 0; }
+}
+
+/* Gradient Orbs */
+.gradient-orb {
+    position: absolute;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(167, 139, 250, 0.1), rgba(118, 75, 162, 0.05));
+    animation: pulse 8s ease-in-out infinite;
+    filter: blur(20px);
+}
+
+.gradient-orb:nth-child(1) {
+    width: 200px; height: 200px; top: 10%; left: 80%; animation-delay: 0s;
+}
+.gradient-orb:nth-child(2) {
+    width: 150px; height: 150px; top: 60%; left: 10%; animation-delay: 2s;
+}
+.gradient-orb:nth-child(3) {
+    width: 100px; height: 100px; top: 80%; left: 70%; animation-delay: 4s;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(0.8); opacity: 0.3; }
+    50% { transform: scale(1.2); opacity: 0.1; }
+}
+
+
+/* ======================================================= */
+/* LAYOUT UMUM                                            */
+/* ======================================================= */
+
+main {
+    position: relative;
+    z-index: 3;
+}
+
+section {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 80px 5%;
+    text-align: center;
+    position: relative;
+    overflow: hidden; /* Mencegah elemen ::after keluar dari section */
+}
+
+h2 {
+    font-family: var(--font-utama);
+    font-size: 2.8rem;
+    font-weight: 600;
+    margin-bottom: 3rem;
+    color: #ffffff;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+    letter-spacing: -0.5px;
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+/* ======================================================= */
+/* BAGIAN 1: BERANDA                                      */
+/* ======================================================= */
+
+#beranda .konten-beranda {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    max-width: 800px;
+}
+
+#beranda .foto-utama {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 
+        0 0 0 1px rgba(255, 255, 255, 0.1),
+        0 20px 40px rgba(0, 0, 0, 0.4),
+        0 0 80px rgba(167, 139, 250, 0.3);
+    margin-bottom: 2rem;
+    opacity: 0;
+    transform: translateY(50px) scale(0.9);
+    filter: grayscale(0.2);
+}
+
+#beranda h1 {
+    font-family: var(--font-utama);
+    font-size: 3.5rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    color: #ffffff;
+    text-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
+    letter-spacing: -1px;
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+#beranda .subjudul {
+    font-size: 1.2rem;
+    max-width: 600px;
+    opacity: 0;
+    transform: translateY(30px);
+    color: var(--warna-secondary);
+    line-height: 1.8;
+    font-weight: 300;
+    font-style: italic;
+}
+
+/* ======================================================= */
+/* BAGIAN 2: GALERI FOTO                                  */
+/* ======================================================= */
+
+#galeri .subjudul-galeri {
+    font-size: 1.1rem;
+    color: var(--warna-secondary);
+    margin-bottom: 2rem;
+    font-style: italic;
+    max-width: 500px;
+}
+
+#galeri-sortable {
+    display: grid;
+    /* Kita buat grid 3x... yang rapi */
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    width: 100%;
+    max-width: 600px; /* Atur lebar maksimalnya */
+}
+
+.item-galeri-sortable {
+    width: 100%;
+    aspect-ratio: 1 / 1; /* Membuat item menjadi kotak sempurna */
+    border-radius: 12px;
+    overflow: hidden;
+    cursor: grab;
+    transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.item-galeri-sortable img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    pointer-events: none; /* Penting! */
+}
+
+/* Style saat sebuah item sedang di-drag */
+.item-galeri-sortable.sortable-ghost {
+    opacity: 0.4;
+    background: var(--warna-aksen);
+}
+
+.item-galeri-sortable.sortable-chosen {
+    cursor: grabbing;
+    transform: scale(1.05);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+}
+
+/* Penyesuaian untuk HP (Grid jadi 2 kolom) */
+
+  
+  /* ======================================================= */
+  /* BAGIAN 3: SPOTIFY PLAYLIST                             */
+  /* ======================================================= */
+
+#spotify p {
+    font-size: 1.1rem;
+    color: var(--warna-secondary);
+    margin-bottom: 2rem;
+    font-weight: 300;
+    font-style: italic;
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+#spotify iframe {
+    width: 100%;
+    max-width: 600px;
+    height: 352px;
+    border-radius: 16px;
+    box-shadow: 
+        0 20px 40px rgba(0, 0, 0, 0.4),
+        0 0 0 1px rgba(255, 255, 255, 0.1);
+    margin-top: 1rem;
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+/* ======================================================= */
+/* BAGIAN 4: CATATAN (PUISI & SUARA)                      */
+/* ======================================================= */
+
+.konten-catatan {
+    width: 100%;
+    max-width: 700px;
+    background: rgba(30, 41, 59, 0.2);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    padding: 3rem;
+    box-shadow: 
+        0 20px 50px rgba(0, 0, 0, 0.3),
+        0 0 0 1px rgba(255, 255, 255, 0.05);
+}
+
+.konten-catatan h4 {
+    font-family: var(--font-utama);
+    font-size: 1.6rem;
+    margin-bottom: 1.5rem;
+    color: var(--warna-aksen);
+    font-weight: 600;
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.konten-catatan .teks-puisi {
+    font-size: 1.15rem;
+    line-height: 2.2;
+    font-style: italic;
+    margin-bottom: 2.5rem;
+    color: var(--warna-teks);
+    font-weight: 300;
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.konten-catatan audio {
+    width: 100%;
+    margin-top: 1rem;
+    margin-bottom: 2.5rem;
+    border-radius: 8px;
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.konten-catatan audio::-webkit-media-controls-panel {
+    background-color: rgba(30, 41, 59, 0.8);
+}
+
+.konten-catatan hr {
+    border: 0;
+    height: 1px;
+    background: linear-gradient(to right, 
+        rgba(255, 255, 255, 0), 
+        rgba(255, 255, 255, 0.2), 
+        rgba(255, 255, 255, 0));
+    margin-bottom: 2rem;
+    opacity: 0;
+}
+
+.konten-catatan .teks-penutup {
+    font-style: italic;
+    color: var(--warna-secondary);
+    font-size: 1.1rem;
+    font-weight: 300;
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  /* ======================================================= */
+  /* FOOTER                                                 */
+  /* ======================================================= */
+  
+footer {
+    padding: 2rem;
+    text-align: center;
+    font-size: 0.9rem;
+    color: var(--warna-secondary);
+    position: relative;
+    z-index: 3;
+    background: rgba(10, 10, 15, 0.8);
+    backdrop-filter: blur(10px);
+}
+
+/* ======================================================= */
+/* RESPONSIVE DESIGN                                      */
+/* ======================================================= */
+
+@media (max-width: 768px) {
+    .splash-title {
+        font-size: 2rem;
+    }
+    .splash-subtitle {
+        font-size: 1rem;
+        margin-bottom: 2rem;
+    }
+    .tombol-mulai-interaktif {
+        width: 220px;
+        height: 80px;
+    }
+    .tombol-mulai-interaktif .kontrol {
+        width: 50px;
+        height: 50px;
+        top: 15px;
+        left: 15px;
+    }
+    .tombol-mulai-interaktif.on .kontrol {
+        transform: translateX(140px);
+    }
+
+  section { padding: 60px 8%; }
+  
+  h2 { font-size: 2.2rem; }
+  
+  #beranda .foto-utama { 
+    width: 140px; 
+    height: 140px; 
+  }
+  
+  #beranda h1 { 
+    font-size: 2.6rem; 
+    }
+    
+    #beranda .subjudul { 
+        font-size: 1rem; 
+      }
+
+    .grid-galeri { 
+        grid-template-columns: 1fr; 
+        gap: 1.5rem;
+    }
+
+    #galeri-sortable {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    
+    .konten-catatan { 
+      padding: 2rem 1.5rem; 
+    }
+    
+    #spotify iframe {
+      height: 280px;
+    }
+}
