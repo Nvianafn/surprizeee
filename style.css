@@ -490,7 +490,52 @@ h2 {
 }
 
 /* Penyesuaian untuk HP (Grid jadi 2 kolom) */
+.stiker-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* Tampilkan 5 stiker per baris di desktop */
+    gap: 15px;
+    width: 100%;
+    max-width: 700px;
+    margin-bottom: 40px;
+    padding: 20px;
+    background: rgba(30, 41, 59, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+}
 
+.item-stiker {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 10px;
+    cursor: grab;
+    transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+}
+
+.item-stiker img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* Penting agar stiker tidak gepeng */
+    pointer-events: none;
+}
+
+/* Style untuk SortableJS di grid stiker */
+.item-stiker.sortable-ghost {
+    opacity: 0.4;
+    background: var(--warna-aksen);
+}
+
+.item-stiker.sortable-chosen {
+    cursor: grabbing;
+    transform: scale(1.1);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+}
+
+/* Penyesuaian untuk HP (Grid stiker jadi 3 kolom) */
+@media (max-width: 768px) {
+    .stiker-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
   
   /* ======================================================= */
   /* BAGIAN 3: SPOTIFY PLAYLIST                             */
@@ -517,6 +562,231 @@ h2 {
     margin-top: 1rem;
     opacity: 0;
     transform: translateY(30px);
+}
+/* ======================================================= */
+/* MINIGAME MEMORY STIKER - Enhanced Styles               */
+/* ======================================================= */
+
+#minigame {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    min-height: 100vh;
+    position: relative;
+}
+
+#game-board {
+    display: none; /* Hidden initially */
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    width: 100%;
+    max-width: 400px;
+    perspective: 1000px;
+    margin: 2rem 0;
+}
+
+.card {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.6s cubic-bezier(0.4, 0.0, 0.2, 1);
+    cursor: pointer;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.card:hover {
+    transform: scale(1.05);
+}
+
+.card-inner {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.6s ease;
+}
+
+.card.flipped .card-inner {
+    transform: rotateY(180deg);
+}
+
+
+.card.matched {
+    transform: scale(0.9) rotateY(180deg);
+    opacity: 0.7;
+    pointer-events: none;
+    animation: matchPulse 0.8s ease-out;
+}
+
+
+
+@keyframes matchPulse {
+    0% { transform: scale(0.9) rotateY(180deg); }
+    50% { transform: scale(1.1) rotateY(180deg); box-shadow: 0 0 30px rgba(167, 139, 250, 0.6); }
+    100% { transform: scale(0.9) rotateY(180deg); }
+}
+
+.card-face {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.card-front {
+    background: 
+        linear-gradient(145deg, #2e3c54, #1a2333),
+        radial-gradient(circle at 30% 30%, rgba(167, 139, 250, 0.1), transparent);
+    border: 2px solid rgba(167, 139, 250, 0.3);
+    position: relative;
+    z-index: 2;
+}
+
+/* Tambahkan ini di bagian CSS untuk minigame */
+.card-front img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* atau 'contain' jika ingin gambar terlihat penuh */
+    border-radius: 12px; /* Samakan dengan border-radius kartu */
+}
+
+.card-front::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        repeating-linear-gradient(
+            45deg,
+            transparent,
+            transparent 10px,
+            rgba(167, 139, 250, 0.05) 10px,
+            rgba(167, 139, 250, 0.05) 20px
+        );
+}
+
+.card-pattern {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--warna-aksen);
+    text-shadow: 0 0 20px rgba(167, 139, 250, 0.5);
+    z-index: 1;
+    position: relative;
+}
+
+.card-back {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        linear-gradient(145deg, #ffffff, #f8f9fa);
+    transform: rotateY(180deg);
+    padding: 8px;
+    border: 2px solid rgba(167, 139, 250, 0.4);
+    z-index: 1;
+}
+
+.card-back img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 8px;
+}
+
+/* Win Screen Styles */
+#win-message {
+    font-family: var(--font-utama);
+    font-size: 2rem;
+    color: var(--warna-aksen);
+    text-shadow: 0 0 20px var(--warna-aksen);
+    margin-top: 1.5rem;
+}
+
+/* Tombol Unduh yang Stylish */
+.tombol-unduh {
+    display: inline-block;
+    background: 
+        linear-gradient(145deg, rgba(30, 41, 59, 0.6), rgba(15, 23, 42, 0.8));
+    color: var(--warna-teks);
+    text-decoration: none;
+    padding: 12px 24px;
+    border-radius: 25px;
+    border: 1px solid rgba(167, 139, 250, 0.3);
+    font-weight: 500;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    box-shadow: 
+        0 5px 15px rgba(0, 0, 0, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.tombol-unduh::before {
+    content: '⬇️ ';
+}
+
+.tombol-unduh:hover {
+    background: 
+        linear-gradient(145deg, rgba(167, 139, 250, 0.2), rgba(138, 99, 210, 0.3));
+    border-color: rgba(167, 139, 250, 0.5);
+    transform: translateY(-2px);
+    box-shadow: 
+        0 10px 25px rgba(0, 0, 0, 0.3),
+        0 0 20px rgba(167, 139, 250, 0.2);
+}
+
+
+/* ======================================================= */
+/* RESPONSIVE DESIGN FOR MEMORY GAME                      */
+/* ======================================================= */
+
+@media (max-width: 768px) {
+    #game-board {
+        max-width: 320px;
+        gap: 10px;
+    }
+    
+    .card-pattern {
+        font-size: 1.5rem;
+    }
+    
+    .win-content {
+        margin: 0 20px;
+        padding: 2rem 1.5rem;
+    }
+    
+    .win-content h3 {
+        font-size: 2rem;
+    }
+    
+    .win-content p {
+        font-size: 1rem;
+    }
+    
+    #hadiah-btn {
+        padding: 12px 24px;
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    #game-board {
+        max-width: 280px;
+        gap: 8px;
+    }
+    
+    .card-pattern {
+        font-size: 1.2rem;
+    }
 }
 
 /* ======================================================= */
